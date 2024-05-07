@@ -53,15 +53,12 @@
             <h4 class="mb-2">Adventure starts here 🚀</h4>
             <p class="mb-4">Make your app management easy and fun!</p>
 
-            <form id="formAuthentication" class="mb-3" action="/register" method="POST">
+            <form id="formAuthentication" class="mb-3">
               <div class="mb-3">
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter your first name" autofocus required />
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" autofocus required />
               </div>
-              <div class="mb-3">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter your last name" required />
-              </div>
+            
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required />
@@ -74,13 +71,10 @@
                 </div>
               </div>
               <div class="mb-3">
-                <label for="role" class="form-label">Role</label>
-                <select class="form-select" id="role" name="role" required>
-                  <option value="">Select role</option>
-                  <option value="ADMIN">Admin</option>
-                  <option value="USER">User</option>
-                </select>
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your phone" required />
               </div>
+             
               <button type="button" onclick="registerUser()" class="btn btn-primary d-grid w-100">Sign up</button>
             </form>
 
@@ -120,54 +114,35 @@
   <!-- Page JS -->
   <script>
     function registerUser() {
-      var firstName = document.getElementById("firstName").value;
-      var lastName = document.getElementById("lastName").value;
-      var email = document.getElementById("email").value;
-      var password = document.getElementById("password").value;
-      var role = document.getElementById("role").value;
-  
-      var user = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-        role: role
+      // Get form data
+      var formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        phone: document.getElementById('phone').value
       };
-  
-      fetch('http://localhost:8080/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(user)
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Registration failed');
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log('Registration successful:', data);
-          // Save token in session storage
-          sessionStorage.setItem('authToken', data.token);
-          // Redirect based on user role
-          if (data.role === 'ADMIN') {
-            window.location.href = '/sneat-1.0.0/html/index.html';
-          } else {
-            window.location.href = '/sneat-1.0.0/html/cards-basic.html';
-          }
-        })
-        .catch(error => {
-          console.error('Error registering user:', error);
-          // Handle error, e.g., display error message to user
-        });
+
+      // Send POST request using AJAX
+      $.ajax({
+        url: 'http://localhost:8080/user/add',
+        type: 'POST',
+        data: JSON.stringify(formData), // Convert form data to JSON format
+        contentType: 'application/json',
+        success: function(response) {
+          // Handle successful response
+          console.log(response);
+          alert("User registered successfully!");
+          // Redirect to login page or any other page
+          window.location.href ='../index.html'
+        },
+        error: function(xhr, status, error) {
+          // Handle error
+          console.error(status, error);
+          alert("Error registering user. Please try again.");
+        }
+      });
     }
   </script>
-  
-
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
 </html>

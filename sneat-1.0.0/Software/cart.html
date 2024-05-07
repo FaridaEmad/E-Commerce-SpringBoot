@@ -140,21 +140,15 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="index.html" class="menu-link">
+              <a href="custHome.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Home</div>
               </a>
             </li>
             <li class="menu-item">
-                <a href="index.html" class="menu-link">
+                <a href="allProducts.html" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-t-shirt"></i>
                   <div data-i18n="Analytics">All Products</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="index.html" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-category"></i>
-                  <div data-i18n="Analytics">Categories</div>
                 </a>
             </li>
             <li class="menu-item">
@@ -164,7 +158,7 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a href="index.html" class="menu-link">
+                <a href="order.html" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-credit-card"></i>
                   <div data-i18n="Analytics">Orders</div>
                 </a>
@@ -194,7 +188,7 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <h2 class="mb-0">Category</h2>
+                  <h2 class="mb-0">Your Cart</h2>
                 </div>
               </div>
               <!-- /Search -->
@@ -285,57 +279,30 @@
             <div class="container-fluid flex-grow-1 container-p-y">
               <!-- Layout Demo -->
 
+              <div class="card">
+                <div class="table-responsive text-nowrap">
+                  <table class="table" id="cartTable">
+                    <thead>
+                      <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Increase Or Decrease</th>
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="row d-flex justify-content-center p-5">
+                  <button type="button" class="btn btn-success" onclick="PlaceOrder()">Place Order</button>
+              </div>
+              <!--/ Basic Bootstrap Table -->
 
               <!-- Put your code here-->
-              <div class="card m-3 p-4">
-                <div class="card-header">Add new category</div>
-                <div class="card-body">
-                    <form action="#" method="post" id="categoryForm">
-                        <div class="form-group">
-                            <label for="name">Name: *</label>
-                            <input type="text" name="name" id="name" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="desc">Description: *</label>
-                            <input type="text" name="desc" id="desc" class="form-control">
-                        </div>
-                        <button class="btn btn-success mt-2" >Submit</button>
-                    </form>
-                </div>
-            </div>
-            
-            <!-- Search Bar -->
-            <div class="card m-3 p-4">
-                <div class="card-header">Search Category</div>
-                <div class="card-body">
-                    <div class="input-group mb-3">
-                        <input type="text" id="searchInput" class="form-control" placeholder="Search by ID">
-                        <button class="btn btn-primary" id="searchBtn">Search</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card m-3 p-4">
-                <div class="card-header">Categories List</div>
-            
-                <div class="card-body">
-            
-                    <table class="table" id="table">
-                        <thead>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                        </thead>
-                        <tbody>
-                        <!-- Table rows will be dynamically populated here -->
-                        </tbody>
-                    </table>
-            
-                </div>
-            </div>
-
-              
               <!--/ Layout Demo -->
             </div>
             <!-- / Content -->
@@ -415,156 +382,134 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <script>
-        function updateTable(){
-            $('#table tbody').empty();
-    
-            var url = "http://localhost:8080/category"
-            $.ajax({
-                url: url,
-                type: "GET",
-                datatype: "json",
-                success: function(data){
-                    console.log(data)
-                    for(i=0 ; i< data.length ; i++){
-                        // Adding both update and delete buttons in each row
-                        $("#table tbody").append("<tr><td>" + data[i].id + "</td><td>" + data[i].name + "</td><td>" + data[i].description + "</td><td><button class='btn btn-primary update-button' data-id='" + data[i].id + "' data-name='" + data[i].name + "' data-desc='" + data[i].description + "'>Update</button> <button class='btn btn-danger delete-button' data-id='" + data[i].id + "'>Delete</button></td></tr>");
-                    }
-                },
-                error: function(){
-                    console.log('error happened')
-                }
-            })
-        }
-        updateTable()
-    
-        $("#categoryForm").submit(function(event){
-            event.preventDefault();
-            var url = "http://localhost:8080/category/create"
-            $.ajax({
-                url:url,
-                type:"POST",
-                datatype:"json",
-                contentType: "application/json",
-                data:JSON.stringify({
-                    name: document.getElementById('name').value,
-                    description: document.getElementById('desc').value,
-                }),
-                success:function(data){
-                    console.log(data)
-                    updateTable()
-                },
-                error: function(){
-                    console.log("error")
-                }
-            })
-        })
-    
-        // Event listener for update button
-        $(document).on('click', '.update-button', function() {
-            var categoryId = $(this).data('id');
-            var categoryName = $(this).data('name');
-            var categoryDesc = $(this).data('desc');
-    
-            // Prefill the form with current category details
-            $('#name').val(categoryName);
-            $('#desc').val(categoryDesc);
-    
-            // Change submit button to update button
-            $('#submitBtn').text('Update').attr('id', 'updateBtn');
-            $('#updateBtn').data('id', categoryId); // Set category ID as data attribute
+      function getCart(){
+        var url = "http://localhost:8080/cart/activeCart/1"
+        $.ajax({
+          url:url,
+          type:"Get",
+          dataType:"json",
+          success:function(data){
+            console.log(data)
+            var cartid = data.id;
+            updateCart(cartid)
+          },
+          error:function(){
+            console.log("error")
+          }
         });
-    
-        // Event listener for update form submission
-        $(document).on('click', '#updateBtn', function() {
-            var categoryId = $(this).data('id');
-            var newName = $('#name').val();
-            var newDescription = $('#desc').val();
-    
-            updateCategory(categoryId, newName, newDescription);
-        });
-    
-        // Function to update a category
-        function updateCategory(categoryId, newName, newDescription) {
-            var url = "http://localhost:8080/category/" + categoryId + "/update";
-    
-            $.ajax({
-                url: url,
-                type: "PUT",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    name: newName,
-                    description: newDescription
-                }),
-                success: function(data) {
-                    console.log("Category updated successfully:", data);
-                    updateTable();
-                    // Reset form and button
-                    $('#categoryForm')[0].reset();
-                    $('#updateBtn').text('Submit').attr('id', 'submitBtn');
-                },
-                error: function() {
-                    console.log("Error updating category.");
-                }
-            });
-        }
-    
-        // Event listener for delete button
-        $(document).on('click', '.delete-button', function() {
-            var categoryId = $(this).data('id');
-            deleteCategory(categoryId);
-        });
-    
-        // Function to delete a category
-        function deleteCategory(categoryId) {
-            var url = "http://localhost:8080/category/" + categoryId + "/delete";
-    
-            $.ajax({
-                url: url,
-                type: "DELETE",
-                success: function(data) {
-                    console.log("Category deleted successfully:", data);
-                    updateTable();
-                },
-                error: function() {
-                    console.log("Error deleting category.");
-                }
-            });
-        }
-    
-        // Event listener for search button
-        $('#searchBtn').click(function() {
-            var categoryId = $('#searchInput').val();
-            if (categoryId.trim() !== '') {
-                findCategory(categoryId);
-            } else {
-                // If the search input is empty, refresh the table
-                updateTable();
+      }
+
+      function updateCart(cid){
+        $("#cartTable tbody").empty()
+        var url = "http://localhost:8080/cartProduct/cart/"+cid
+        $.ajax({
+          url:url,
+          type:"Get",
+          dataType:"json",
+          success:function(data){
+            console.log(data)
+            for(i=0;i<data.length;i++){
+              $("#cartTable tbody").append("<tr><td><strong>"+data[i].product.name+"</strong></td><td>"+data[i].quantity+"</td><td>"+data[i].product.price*data[i].quantity+'</td><td class"btn-spc"><button type="button" class="btn rounded-pill btn-icon btn-success" onclick="increaseQuantity('+data[i].cart.id + ',' + data[i].product.id +' ) "> <i class="bx bx-plus"></i></button><button type="button" class="btn rounded-pill btn-icon btn-warning" onclick="decreaseQuantity('+data[i].cart.id + ',' + data[i].product.id +' ) " ><i class="bx bx-minus"></i></button></td><td><button type="button" class="btn rounded-pill btn-danger" onclick="deleteProduct('+data[i].cart.id + ',' + data[i].product.id +' ) " >Delete</button></td></tr>')
             }
+          },
+          error:function(){
+            console.log("error")
+          }
         });
-    
-        // Function to find a category by ID
-        function findCategory(categoryId) {
-            var url = "http://localhost:8080/category/" + categoryId + "/view";
-    
-            $.ajax({
-                url: url,
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
-                    $('#table tbody').empty(); // Clear the table
-                    if (data != null) {
-                        // If category found, display it in the table
-                        $("#table tbody").append("<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.description + "</td><td><button class='btn btn-primary update-button' data-id='" + data.id + "' data-name='" + data.name + "' data-desc='" + data.description + "'>Update</button> <button class='btn btn-danger delete-button' data-id='" + data.id + "'>Delete</button></td></tr>");
-                    } else {
-                        // If category not found, display a message
-                        $("#table tbody").append("<tr><td colspan='4'>Category not found</td></tr>");
-                    }
-                },
-                error: function() {
-                    console.log("Error finding category.");
-                }
-            });
+      }
+
+    function increaseQuantity(cid, pid) {
+    var url = "http://localhost:8080/cartProduct/" + cid + "/increase/" + pid;
+    $.ajax({
+        url: url,
+        type: "PUT",
+        success: function (response) {
+            console.log(response);
+            updateCart(cid)
+        },
+        error: function () {
+            console.error("Error while increasing quantity.");
         }
+    });
+}
+
+function decreaseQuantity(cid, pid) {
+    var url = "http://localhost:8080/cartProduct/" + cid + "/decrease/" + pid;
+    $.ajax({
+        url: url,
+        type: "PUT",
+        success: function (response) {
+            console.log(response);
+            updateCart(cid)
+        },
+        error: function () {
+            console.error("Error while decreasing quantity.");
+        }
+    });
+}
+
+function deleteProduct(cid, pid) {
+    var url = "http://localhost:8080/cartProduct/" + cid + "/delete/" + pid;
+    $.ajax({
+        url: url,
+        type: "DELETE",
+        success: function (response) {
+            console.log(response);
+            updateCart(cid)
+        },
+        error: function () {
+            console.error("Error while deleting product.");
+        }
+    });
+}
+
+function deactive(cid){
+  var url = "http://localhost:8080/cart/"+cid+"/update";
+    $.ajax({
+        url: url,
+        type: "PUT",
+        success: function (response) {
+            console.log(response);
+            createNew()
+        },
+        error: function () {
+            console.error("Error while decreasing quantity.");
+        }
+    });
+}
+
+function createNew(){
+  var url = "http://localhost:8080/cart/create/1";
+    $.ajax({
+        url: url,
+        type: "Post",
+        success: function (response) {
+            console.log(response);
+        },
+        error: function () {
+            console.error("Error while creating new cart.");
+        }
+    });
+}
+
+function PlaceOrder(){
+  var url = "http://localhost:8080/orders/1/create";
+    $.ajax({
+        url: url,
+        type: "Post",
+        success: function (response) {
+            console.log(response);
+            getCart()
+            window.location.href = 'order.html';
+        },
+        error: function () {
+            console.error("Error while placing order Try Again.");
+        }
+    });
+}
+
+      getCart()
+      console.log("cart",cartid)  
     </script>
   </body>
 </html>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Components.*;
 import com.example.demo.Components.Services.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("product")
 public class ProductController {

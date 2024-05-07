@@ -140,31 +140,31 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="index.html" class="menu-link">
+              <a href="adminHome.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Home</div>
               </a>
             </li>
             <li class="menu-item">
-                <a href="index.html" class="menu-link">
+                <a href="adminProd.html" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-t-shirt"></i>
-                  <div data-i18n="Analytics">All Products</div>
+                  <div data-i18n="Analytics">Control Products</div>
                 </a>
             </li>
             <li class="menu-item">
-                <a href="index.html" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-category"></i>
-                  <div data-i18n="Analytics">Categories</div>
+                <a href="addProd.html" class="menu-link">
+                  <i class="menu-icon tf-icons bx bxs-t-shirt"></i>
+                  <div data-i18n="Analytics">Add Products</div>
                 </a>
             </li>
             <li class="menu-item">
-                <a href="cart.html" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-cart-alt"></i>
-                  <div data-i18n="Analytics">Cart</div>
+                <a href="adminCat.html" class="menu-link">
+                    <i class='bx bxs-category'></i>
+                  <div data-i18n="Analytics">Control Categories</div>
                 </a>
             </li>
             <li class="menu-item">
-                <a href="index.html" class="menu-link">
+                <a href="adminOrders.html" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-credit-card"></i>
                   <div data-i18n="Analytics">Orders</div>
                 </a>
@@ -194,13 +194,7 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
+                  <h2 class="mb-0">Category</h2>
                 </div>
               </div>
               <!-- /Search -->
@@ -293,71 +287,53 @@
 
 
               <!-- Put your code here-->
-
-              <div class="row d-flex justify-content-center">
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                      <h5 class="card-header">Default</h5>
-                      <div class="card-body">
-                        <div>
-                        <form id="myForm">
-                          <label for="defaultFormControlInput" class="form-label">Name</label>
-                          <input id="name"
-                          name="name"
-                            type="text"
-                            class="form-control"
-                            id="defaultFormControlInput"
-                            aria-describedby="defaultFormControlHelp"
-                          />
-                          <label for="defaultFormControlInput" class="form-label">Description</label>
-                          <input id="description"
-                          name="description"
-                            type="text"
-                            class="form-control"
-                            id="defaultFormControlInput"
-                            aria-describedby="defaultFormControlHelp"
-                          />
-                          <label for="defaultFormControlInput" class="form-label">Quantity</label>
-                          <input id="quantity"
-                          name="quantity"
-                            type="text"
-                            class="form-control"
-                            id="defaultFormControlInput"
-                            aria-describedby="defaultFormControlHelp"
-                          />
-                          <label for="defaultFormControlInput" class="form-label">Price</label>
-                          <input id="price"
-                          name="price"
-                            type="text"
-                            class="form-control"
-                            id="defaultFormControlInput"
-                            aria-describedby="defaultFormControlHelp"
-                          />
-                          <label for="defaultFormControlInput" class="form-label">Image Url</label>
-                          <input id="image"
-                          name="image"
-                            type="text"
-                            class="form-control"
-                            id="defaultFormControlInput"
-                            aria-describedby="defaultFormControlHelp"
-                          />
-                          <label for="defaultFormControlInput" class="form-label">Category ID</label>
-                          <input id="categoryId"
-                          name="categoryId"
-                            type="text"
-                            class="form-control"
-                            id="defaultFormControlInput"
-                            aria-describedby="defaultFormControlHelp"
-                          />
-                          <div class="d-grid gap-2 col-lg-6 mx-auto p-3">
-                          <button class="btn btn-primary btn-lg" type="submit">Add</button>
-                          </div>
-                        </form>
+              <div class="card m-3 p-4">
+                <div class="card-header">Add new category</div>
+                <div class="card-body">
+                    <form action="#" method="post" id="categoryForm">
+                        <div class="form-group">
+                            <label for="name">Name: *</label>
+                            <input type="text" name="name" id="name" class="form-control">
                         </div>
-                      </div>
+                        <div class="form-group">
+                            <label for="desc">Description: *</label>
+                            <input type="text" name="desc" id="desc" class="form-control">
+                        </div>
+                        <button class="btn btn-success mt-2" >Submit</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="card m-3 p-4">
+                <div class="card-header">Search Category</div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search by ID">
+                        <button class="btn btn-primary" id="searchBtn">Search</button>
                     </div>
-                  </div>
-              </div>
+                </div>
+            </div>
+            
+            <div class="card m-3 p-4">
+                <div class="card-header">Categories List</div>
+            
+                <div class="card-body">
+            
+                    <table class="table" id="table">
+                        <thead>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                        </thead>
+                        <tbody>
+                        <!-- Table rows will be dynamically populated here -->
+                        </tbody>
+                    </table>
+            
+                </div>
+            </div>
 
               
               <!--/ Layout Demo -->
@@ -439,42 +415,156 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <script>
-        // Function to handle form submission
-function submitForm(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-
-    // Get form data
-    var formData = {
-        name: document.getElementById('name').value,
-        description: document.getElementById('description').value,
-        quantity: document.getElementById('quantity').value,
-        price: document.getElementById('price').value,
-        image: document.getElementById('image').value,
-        categoryId: document.getElementById('categoryId').value
-
-    };
-
-    // Send POST request using AJAX
-    $.ajax({
-        url: 'http://localhost:8080/product/createByCategory',
-        type: 'POST',
-        data: JSON.stringify(formData), // Convert form data to JSON format
-        contentType: 'application/json',
-        success: function(response) {
-            // Handle successful response
-            console.log(response);
-            window.location.href = 'http://localhost:8080/sneat-1.0.0/Software/adminProd.html';
-        },
-        error: function(xhr, status, error) {
-            // Handle error
-            console.error(status, error);
+        function updateTable(){
+            $('#table tbody').empty();
+    
+            var url = "http://localhost:8080/category"
+            $.ajax({
+                url: url,
+                type: "GET",
+                datatype: "json",
+                success: function(data){
+                    console.log(data)
+                    for(i=0 ; i< data.length ; i++){
+                        // Adding both update and delete buttons in each row
+                        $("#table tbody").append("<tr><td>" + data[i].id + "</td><td>" + data[i].name + "</td><td>" + data[i].description + "</td><td><button class='btn btn-primary update-button' data-id='" + data[i].id + "' data-name='" + data[i].name + "' data-desc='" + data[i].description + "'>Update</button> <button class='btn btn-danger delete-button' data-id='" + data[i].id + "'>Delete</button></td></tr>");
+                    }
+                },
+                error: function(){
+                    console.log('error happened')
+                }
+            })
         }
-    });
-}
-
-// Add event listener to form submission
-document.getElementById('myForm').addEventListener('submit', submitForm);
-
+        updateTable()
+    
+        $("#categoryForm").submit(function(event){
+            event.preventDefault();
+            var url = "http://localhost:8080/category/create"
+            $.ajax({
+                url:url,
+                type:"POST",
+                datatype:"json",
+                contentType: "application/json",
+                data:JSON.stringify({
+                    name: document.getElementById('name').value,
+                    description: document.getElementById('desc').value,
+                }),
+                success:function(data){
+                    console.log(data)
+                    updateTable()
+                },
+                error: function(){
+                    console.log("error")
+                }
+            })
+        })
+    
+        // Event listener for update button
+        $(document).on('click', '.update-button', function() {
+            var categoryId = $(this).data('id');
+            var categoryName = $(this).data('name');
+            var categoryDesc = $(this).data('desc');
+    
+            // Prefill the form with current category details
+            $('#name').val(categoryName);
+            $('#desc').val(categoryDesc);
+    
+            // Change submit button to update button
+            $('#submitBtn').text('Update').attr('id', 'updateBtn');
+            $('#updateBtn').data('id', categoryId); // Set category ID as data attribute
+        });
+    
+        // Event listener for update form submission
+        $(document).on('click', '#updateBtn', function() {
+            var categoryId = $(this).data('id');
+            var newName = $('#name').val();
+            var newDescription = $('#desc').val();
+    
+            updateCategory(categoryId, newName, newDescription);
+        });
+    
+        // Function to update a category
+        function updateCategory(categoryId, newName, newDescription) {
+            var url = "http://localhost:8080/category/" + categoryId + "/update";
+    
+            $.ajax({
+                url: url,
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    name: newName,
+                    description: newDescription
+                }),
+                success: function(data) {
+                    console.log("Category updated successfully:", data);
+                    updateTable();
+                    // Reset form and button
+                    $('#categoryForm')[0].reset();
+                    $('#updateBtn').text('Submit').attr('id', 'submitBtn');
+                },
+                error: function() {
+                    console.log("Error updating category.");
+                }
+            });
+        }
+    
+        // Event listener for delete button
+        $(document).on('click', '.delete-button', function() {
+            var categoryId = $(this).data('id');
+            deleteCategory(categoryId);
+        });
+    
+        // Function to delete a category
+        function deleteCategory(categoryId) {
+            var url = "http://localhost:8080/category/" + categoryId + "/delete";
+    
+            $.ajax({
+                url: url,
+                type: "DELETE",
+                success: function(data) {
+                    console.log("Category deleted successfully:", data);
+                    updateTable();
+                },
+                error: function() {
+                    console.log("Error deleting category.");
+                }
+            });
+        }
+    
+        // Event listener for search button
+        $('#searchBtn').click(function() {
+            var categoryId = $('#searchInput').val();
+            if (categoryId.trim() !== '') {
+                findCategory(categoryId);
+            } else {
+                // If the search input is empty, refresh the table
+                updateTable();
+            }
+        });
+    
+        // Function to find a category by ID
+        function findCategory(categoryId) {
+            var url = "http://localhost:8080/category/" + categoryId + "/view";
+    
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    $('#table tbody').empty(); // Clear the table
+                    if (data != null) {
+                        // If category found, display it in the table
+                        $("#table tbody").append("<tr><td>" + data.id + "</td><td>" + data.name + "</td><td>" + data.description + "</td><td><button class='btn btn-primary update-button' data-id='" + data.id + "' data-name='" + data.name + "' data-desc='" + data.description + "'>Update</button> <button class='btn btn-danger delete-button' data-id='" + data.id + "'>Delete</button></td></tr>");
+                    } else {
+                        // If category not found, display a message
+                        $("#table tbody").append("<tr><td colspan='4'>Category not found</td></tr>");
+                    }
+                },
+                error: function() {
+                    console.log("Error finding category.");
+                }
+            });
+        }
     </script>
   </body>
 </html>

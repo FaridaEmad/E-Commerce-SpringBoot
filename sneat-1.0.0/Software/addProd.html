@@ -140,25 +140,31 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item">
-              <a href="custHome.html" class="menu-link">
+              <a href="adminHome.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Home</div>
               </a>
             </li>
             <li class="menu-item">
-                <a href="allProducts.html" class="menu-link">
+                <a href="adminProd.html" class="menu-link">
                   <i class="menu-icon tf-icons bx bxs-t-shirt"></i>
-                  <div data-i18n="Analytics">All Products</div>
+                  <div data-i18n="Analytics">Control Products</div>
                 </a>
             </li>
             <li class="menu-item">
-                <a href="cart.html" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-cart-alt"></i>
-                  <div data-i18n="Analytics">Cart</div>
+                <a href="addProd.html" class="menu-link">
+                  <i class="menu-icon tf-icons bx bxs-t-shirt"></i>
+                  <div data-i18n="Analytics">Add Products</div>
                 </a>
             </li>
             <li class="menu-item">
-                <a href="order.html" class="menu-link">
+                <a href="adminCat.html" class="menu-link">
+                    <i class='bx bxs-category'></i>
+                  <div data-i18n="Analytics">Control Categories</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="adminOrders.html" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-credit-card"></i>
                   <div data-i18n="Analytics">Orders</div>
                 </a>
@@ -188,7 +194,13 @@
               <!-- Search -->
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                  <h2 class="mb-0">All Products</h2>
+                  <i class="bx bx-search fs-4 lh-0"></i>
+                  <input
+                    type="text"
+                    class="form-control border-0 shadow-none"
+                    placeholder="Search..."
+                    aria-label="Search..."
+                  />
                 </div>
               </div>
               <!-- /Search -->
@@ -276,21 +288,76 @@
           <div class="content-wrapper">
             <!-- Content -->
 
-            <div class="container-fluid flex-grow-1 container-p-y" >
+            <div class="container-fluid flex-grow-1 container-p-y">
               <!-- Layout Demo -->
-              <div class="card-body">
-                <small class="text-light fw-semibold">Categories</small>
-              <div class="demo-inline-spacing" id="choose">
-                <button type="button" class="btn rounded-pill btn-primary" onClick="updateAllProducts()" >All Products</button>
-              </div>
-              </div>
 
-                <div class="row" id="allProducts">
+
               <!-- Put your code here-->
-              
-            </div>
 
-              
+              <div class="row d-flex justify-content-center">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                      <h5 class="card-header">Default</h5>
+                      <div class="card-body">
+                        <div>
+                        <form id="myForm">
+                          <label for="defaultFormControlInput" class="form-label">Name</label>
+                          <input id="name"
+                          name="name"
+                            type="text"
+                            class="form-control"
+                            id="defaultFormControlInput"
+                            aria-describedby="defaultFormControlHelp"
+                          />
+                          <label for="defaultFormControlInput" class="form-label">Description</label>
+                          <input id="description"
+                          name="description"
+                            type="text"
+                            class="form-control"
+                            id="defaultFormControlInput"
+                            aria-describedby="defaultFormControlHelp"
+                          />
+                          <label for="defaultFormControlInput" class="form-label">Quantity</label>
+                          <input id="quantity"
+                          name="quantity"
+                            type="text"
+                            class="form-control"
+                            id="defaultFormControlInput"
+                            aria-describedby="defaultFormControlHelp"
+                          />
+                          <label for="defaultFormControlInput" class="form-label">Price</label>
+                          <input id="price"
+                          name="price"
+                            type="text"
+                            class="form-control"
+                            id="defaultFormControlInput"
+                            aria-describedby="defaultFormControlHelp"
+                          />
+                          <label for="defaultFormControlInput" class="form-label">Image Url</label>
+                          <input id="image"
+                          name="image"
+                            type="text"
+                            class="form-control"
+                            id="defaultFormControlInput"
+                            aria-describedby="defaultFormControlHelp"
+                          />
+                          <label for="defaultFormControlInput" class="form-label">Category ID</label>
+                          <input id="categoryId"
+                          name="categoryId"
+                            type="text"
+                            class="form-control"
+                            id="defaultFormControlInput"
+                            aria-describedby="defaultFormControlHelp"
+                          />
+                          <div class="d-grid gap-2 col-lg-6 mx-auto p-3">
+                          <button class="btn btn-primary btn-lg" type="submit">Add</button>
+                          </div>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
 
               
               <!--/ Layout Demo -->
@@ -372,100 +439,42 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
     <script>
-      
-        function updateAllProducts(){
-        $("#allProducts").empty()
-        var url = "http://localhost:8080/product"
-        $.ajax({
-          url:url,
-          type:"Get",
-          dataType:"json",
-          success:function(data){
-            console.log(data)
-            for(i=0;i<data.length;i++){
-                if(data[i].quantity == 0){
-                    continue;
-                }
-              $("#allProducts").append('<div class="col-md-6 col-lg-4"><div class="card"><img class="card-img-top" src="../assets/img/elements/'+data[i].image+
-                '" alt="Card image cap" /><div class="card-body"><h5 class="card-title">'+data[i].name+
-                '</h5><p class="card-text">'+data[i].description+
-                '.</p></div><ul class="list-group list-group-flush"><li class="list-group-item">'+data[i].price+
-                '$</li><li class="list-group-item">'+data[i].category.name+
-                '</li></ul><div class="card-body"><button type="button" data-bs-toggle="tooltip"data-bs-offset="0,4"data-bs-placement="bottom"data-bs-html="true" title="<span>Tooltip on bottom</span>" class="btn rounded-pill btn-primary" onClick="addToCart('+data[i].id+')">Add To Cart</button></div></div></div>')
-            }
-          },
-          error:function(){
-            console.log("error")
-          }
-        });
-      }
+        // Function to handle form submission
+function submitForm(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
 
-      function choose(){
-        var url = "http://localhost:8080/category"
-        $.ajax({
-          url:url,
-          type:"Get",
-          dataType:"json",
-          success:function(data){
-            console.log(data)
-            for(i=0;i<data.length;i++){
-                if(data[i].quantity == 0){
-                    continue;
-                }
-              $("#choose").append('<button type="button" class="btn rounded-pill btn-primary" onClick="getProducts('+data[i].id+')" >'+data[i].name+'</button>')
-            }
-          },
-          error:function(){
-            console.log("error")
-          }
-        });
-      }
+    // Get form data
+    var formData = {
+        name: document.getElementById('name').value,
+        description: document.getElementById('description').value,
+        quantity: document.getElementById('quantity').value,
+        price: document.getElementById('price').value,
+        image: document.getElementById('image').value,
+        categoryId: document.getElementById('categoryId').value
 
-      function getProducts(catId){
-        $("#allProducts").empty()
-        var url = "http://localhost:8080/product/category/"+catId
-        $.ajax({
-          url:url,
-          type:"Get",
-          dataType:"json",
-          success:function(data){
-            console.log(data)
-            for(i=0;i<data.length;i++){
-                if(data[i].quantity == 0){
-                    continue;
-                }
-              $("#allProducts").append('<div class="col-md-6 col-lg-4"><div class="card"><img class="card-img-top" src="../assets/img/elements/'+data[i].image+
-                '" alt="Card image cap" /><div class="card-body"><h5 class="card-title">'+data[i].name+
-                '</h5><p class="card-text">'+data[i].description+
-                '.</p></div><ul class="list-group list-group-flush"><li class="list-group-item">'+data[i].price+
-                '$</li><li class="list-group-item">'+data[i].category.name+
-                '</li></ul><div class="card-body"><button type="button" data-bs-toggle="tooltip"data-bs-offset="0,4"data-bs-placement="bottom"data-bs-html="true" title="<span>Tooltip on bottom</span>" class="btn rounded-pill btn-primary" onClick="addToCart('+data[i].id+')">Add To Cart</button></div></div></div>')
-            }
-          },
-          error:function(){
-            console.log("error")
-          }
-        });
-      }
+    };
 
-      function addToCart(pid){
-        var url = "http://localhost:8080/cartProduct/1/add/"+pid
-        $.ajax({
-          url:url,
-          type:"Post",
-          dataType:"json",
-          success:function(data){
-            console.log(data)
-            window.location.href = 'http://localhost:8080/sneat-1.0.0/Software/cart.html';
-          },
-          error:function(){
-            console.log("error")
-          }
-        });
-      }
-      
-      updateAllProducts()
-      choose()
+    // Send POST request using AJAX
+    $.ajax({
+        url: 'http://localhost:8080/product/createByCategory',
+        type: 'POST',
+        data: JSON.stringify(formData), // Convert form data to JSON format
+        contentType: 'application/json',
+        success: function(response) {
+            // Handle successful response
+            console.log(response);
+            window.location.href = 'adminProd.html';
+        },
+        error: function(xhr, status, error) {
+            // Handle error
+            console.error(status, error);
+        }
+    });
+}
+
+// Add event listener to form submission
+document.getElementById('myForm').addEventListener('submit', submitForm);
+
     </script>
   </body>
 </html>

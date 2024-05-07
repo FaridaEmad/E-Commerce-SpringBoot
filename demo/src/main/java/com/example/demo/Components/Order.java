@@ -1,6 +1,9 @@
 package com.example.demo.Components;
 
 import jakarta.persistence.*;
+// import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 @Entity
@@ -9,10 +12,11 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     @NotNull
     private int id;
-
+    @NotNull
     private LocalDate orderDate;
-
+    @NotNull
     private float totalAmount;
 
     @ManyToOne
