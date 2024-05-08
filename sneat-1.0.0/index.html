@@ -113,7 +113,7 @@
 
           <p class="text-center">
             <span>New on our platform?</span>
-            <a href="auth-register-basic.html"><span>Create an account</span></a>
+            <a href="Software/register.html"><span>Create an account</span></a>
           </p>
         </div>
       </div>
@@ -158,10 +158,10 @@ function submitLogin(event) {
       // Check userType
       if (response.userType === 'customer') {
         // Redirect to customer page
-        window.location.href =  'Software/allProducts.html';
+        window.location.href =  'Software/custHome.html';
       } else if (response.userType === 'admin') {
         // Redirect to admin page
-        window.location.href =  'Software/adminProd.html';
+        window.location.href =  'Software/adminHome.html';
       } else {
         // Handle other user types or unexpected response
         console.error('Invalid userType:', response.userType);

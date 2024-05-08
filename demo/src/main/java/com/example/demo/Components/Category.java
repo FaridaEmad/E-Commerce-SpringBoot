@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotNull;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     @NotNull
+    @NotNull
     private int id;
     @NotNull
     @NotBlank
